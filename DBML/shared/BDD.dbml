@@ -1,0 +1,26 @@
+Table Machines {
+  ID int [pk, increment]
+  Marque varchar(50)
+  OS varchar(50)
+  RAM int
+  AnneeAchat int
+  Utilisateur_ID int [ref: > Utilisateurs.ID]
+}
+Table Logiciels {
+  ID int [pk, increment]
+  Machine_ID int [ref: > Machines.ID]
+  Nom varchar(100)
+  Version varchar(20)
+}
+Table Utilisateurs {
+  ID int [pk, increment]
+  Nom varchar(50)
+  Prenom varchar(50)
+}
+Table InterventionsTechniques {
+  ID int [pk, increment]
+  DateIntervention date
+  Technicien varchar(50)
+  Description varchar(255)
+  Machine_ID int [ref: > Machines.ID]
+}

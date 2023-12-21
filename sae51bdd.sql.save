@@ -1,0 +1,53 @@
+CREATE DATABASE sae51bdd; 
+
+USE sae51bdd;
+
+CREATE TABLE `Machines` (
+  `MachineID` int PRIMARY KEY,
+  `Marque` varchar(50),
+
+  `RAM` int,
+  `AnneeAchat` int
+);
+
+CREATE TABLE `Logiciels` (
+  `IDLogiciel` int PRIMARY KEY,
+  `Nom` varchar(100),
+  `Version` varchar(20)
+);
+
+CREATE TABLE `Utilisateurs` (
+  `UtilisateurID` int PRIMARY KEY,
+  `Nom` varchar(50),
+  `Prenom` varchar(50)
+);
+
+CREATE TABLE `InterventionsTechniques` (
+  `InterventionID` int PRIMARY KEY,
+  `DateIntervention` date,
+  `Technicien` varchar(50),
+  `Description` varchar(255),
+  `MachineID` int
+);
+
+CREATE TABLE `MachinesLogiciels` (
+  `MachineID` int,
+  `IDLogiciel` int
+);
+
+CREATE TABLE `UtilisateursMachines` (
+  `MachineID` int,
+  `UtilisateurID` int
+);
+
+ALTER TABLE `InterventionsTechniques` ADD FOREIGN KEY (`MachineID`) REFERENCES `Machines` (`MachineID`);
+
+ALTER TABLE `MachinesLogiciels` ADD FOREIGN KEY (`MachineID`) REFERENCES `Machines` (`MachineID`);
+
+ALTER TABLE `MachinesLogiciels` ADD FOREIGN KEY (`IDLogiciel`) REFERENCES `Logiciels` (`IDLogiciel`);
+
+ALTER TABLE `UtilisateursMachines` ADD FOREIGN KEY (`MachineID`) REFERENCES `Machines` (`MachineID`);
+
+ALTER TABLE `UtilisateursMachines` ADD FOREIGN KEY (`UtilisateurID`) REFERENCES `Utilisateurs` (`UtilisateurID`);
+
+LOAD DATA LOCAL INFILE `SAE51/machines.csv` INTO TABLE Machines FIELDS TERMINATED BY `,` IGNORE 1 ROWS ();
